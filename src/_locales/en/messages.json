@@ -1,0 +1,10 @@
+{
+  "extName" : {
+    "message" : "Youtube Multi Downloader",
+    "description" : "Extension name"
+  },
+  "extDescription" : {
+    "message" : "Youtube multi downloader",
+    "description" : "Extension description"
+  }
+}
