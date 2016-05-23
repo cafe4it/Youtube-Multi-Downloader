@@ -95,4 +95,4 @@ let parseYoutubeInfoStringToFormats = function(youtubeInfoString) {
         formats.push(formatInfoMap);
     }
     return formats;
-};
+}
