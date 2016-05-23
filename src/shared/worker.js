@@ -6,5 +6,5 @@ onmessage = function (e) {
         }
     }).then(function (text) {
         if (text)postMessage(text);
-    })
+    });
 }
