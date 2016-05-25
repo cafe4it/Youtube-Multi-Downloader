@@ -35,6 +35,8 @@ import rootReducer from './reducers';
 import {wrapStore} from 'react-chrome-redux';
 
 import addCurrentVideo from './actions/index.js';
+import addCurrentVideoInfo from './actions/current_youtube_info_action.js';
+
 import parseYoutubeVideoInfo from '../shared/extractYoutubeToStreams.js';
 
 const store = createStore(rootReducer, {}); // a normal Redux store
@@ -56,12 +58,11 @@ chrome.webRequest.onCompleted.addListener((details)=> {
         const getInfoUrl = 'https://www.youtube.com/get_video_info?video_id=' + extractVideoID(details.url) + '&el=vevo&el=embedded&asv=3&sts=15902';
         let myWorker = new Worker(chrome.runtime.getURL('shared/worker.js'));
         myWorker.onmessage = function (e) {
-            let formats = parseYoutubeVideoInfo(e.data);
-            console.info(formats);
+            let obj = parseYoutubeVideoInfo(e.data);
+	        console.log(obj);
+	        store.dispatch(addCurrentVideoInfo(obj));
         }
         myWorker.postMessage({url : getInfoUrl});
-
-        store.dispatch(addCurrentVideo(details.url));
     }
 }, {urls: ["*://*.youtube.com/watch?v=*", "*://*.youtube.com/embed/*"]})
 

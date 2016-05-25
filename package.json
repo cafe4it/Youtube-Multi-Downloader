@@ -44,6 +44,7 @@
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
+    "redux-promise": "^0.5.3",
     "style-loader": "0.13.0",
     "url-loader": "0.5.7",
     "webpack": "1.12.2",
