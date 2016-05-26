@@ -8,6 +8,9 @@ class App extends Component{
 		super(props);
 		this._getStreamsByFormat = this._getStreamsByFormat.bind(this);
 	}
+	componentDidMount(){
+
+	}
 	_getStreamsByFormat(e){
 		let format = e.target.value;
 		let streams = this.props.currentInfo.streams[format];
@@ -15,11 +18,12 @@ class App extends Component{
 	}
 	render(){
 
-		const formats = ['MP4','WEBM','3GP', 'FLV', 'Audio only'];
+		const formats = ['MP4','WEBM','3GP', 'FLV', 'Audio'];
 
-		return <div className="table-responsive">
+		return <div className="container">
 			{this.props.currentInfo ?
-			<table className="table table-youtube">
+			<table className="table-youtube">
+				<caption>{this.props.currentInfo.title}</caption>
 				<tbody>
 					<tr>
 						<td width="120px"><img src={this.props.currentInfo.poster ? this.props.currentInfo.poster : null} alt={this.props.currentInfo.title}/></td>
@@ -29,13 +33,15 @@ class App extends Component{
 									return <option key={fm} value={fm}>{fm}</option>
 								})}
 							</select></p>
-							{this.props.currentStreams ?
-								<div>
-									{this.props.currentStreams.map((str)=>{
-										return <div key={str.id} ><a target="_blank" href={str.url}>{str.quality} ({str.flag})</a> &nbsp;</div>
-									})}
-								</div>
-								: null}
+							<p>
+								{this.props.currentStreams ?
+									<ul className="table-stream">
+										{this.props.currentStreams.map((str)=>{
+											return <li key={str.id} ><a target="_blank" href={str.url}>{str.quality} {str.flag ? `(${str.flag})` : null}</a> &nbsp;</li>
+										})}
+									</ul>
+									: null}
+							</p>
 						</td>
 					</tr>
 				</tbody>

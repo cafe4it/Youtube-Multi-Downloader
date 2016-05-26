@@ -5,4 +5,15 @@ body{
 
 table.table-youtube{
     min-width: 500px;
+    border-collapse: collapse;
+}
+
+table.table-youtube > caption{
+    text-align: left;
+    vertical-align: middle;
+    font-weight: bolder;
+}
+
+table.table-youtube > th, td {
+    border: 1px solid #000088;
 }
