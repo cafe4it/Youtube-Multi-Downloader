@@ -2,14 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import chooseFormat from '../../background/actions/choose_youtube_format.js';
-
+import _ from 'lodash';
 class App extends Component{
 	constructor(props){
 		super(props);
 		this._getStreamsByFormat = this._getStreamsByFormat.bind(this);
 	}
 	componentDidMount(){
-
+		//this._getStreamsByFormat();
+		this.formats = ['MP4','WEBM','3GP', 'FLV', 'Audio'];
+		let streams = [];
+		if(this.props.currentInfo){
+			this.formats = _.keys(this.props.currentInfo.streams);
+			let defaultFormat = this.formats[0];
+			streams = this.props.currentInfo.streams[defaultFormat];
+		}
+		this.props.chooseFormat(streams);
 	}
 	_getStreamsByFormat(e){
 		let format = e.target.value;
@@ -17,8 +25,6 @@ class App extends Component{
 		this.props.chooseFormat(streams);
 	}
 	render(){
-
-		const formats = ['MP4','WEBM','3GP', 'FLV', 'Audio'];
 
 		return <div className="container">
 			{this.props.currentInfo ?
@@ -29,7 +35,7 @@ class App extends Component{
 						<td width="120px"><img src={this.props.currentInfo.poster ? this.props.currentInfo.poster : null} alt={this.props.currentInfo.title}/></td>
 						<td width="380px">
 							<p>Choose a format : <select onChange={this._getStreamsByFormat}>
-								{formats.map((fm)=>{
+								{this.formats.map((fm)=>{
 									return <option key={fm} value={fm}>{fm}</option>
 								})}
 							</select></p>
