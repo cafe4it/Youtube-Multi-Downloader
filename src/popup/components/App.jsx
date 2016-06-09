@@ -15,9 +15,14 @@ class App extends Component{
 		if(this.props.currentInfo){
 			this.formats = _.keys(this.props.currentInfo.streams);
 			let defaultFormat = this.formats[0];
+			console.info(streams, defaultFormat, this.formats);
 			streams = this.props.currentInfo.streams[defaultFormat];
 		}
 		this.props.chooseFormat(streams);
+
+	}
+	componentDidUpdate(){
+
 	}
 	_getStreamsByFormat(e){
 		let format = e.target.value;
@@ -33,21 +38,29 @@ class App extends Component{
 				<tbody>
 					<tr>
 						<td width="120px"><img src={this.props.currentInfo.poster ? this.props.currentInfo.poster : null} alt={this.props.currentInfo.title}/></td>
-						<td width="380px">
-							<p>Choose a format : <select onChange={this._getStreamsByFormat}>
-								{this.formats.map((fm)=>{
-									return <option key={fm} value={fm}>{fm}</option>
-								})}
-							</select></p>
-							<p>
-								{this.props.currentStreams ?
-									<ul className="table-stream">
-										{this.props.currentStreams.map((str)=>{
-											return <li key={str.id} ><a target="_blank" href={str.url}>{str.quality} {str.flag ? `(${str.flag})` : null}</a> &nbsp;</li>
-										})}
-									</ul>
-									: null}
-							</p>
+						<td width="380px" className="streams-body">
+							<table className="table-streams">
+								<tbody>
+									<tr>
+										<td>Choose a format : <select onChange={this._getStreamsByFormat}>
+											{this.formats.map((fm)=>{
+												return <option key={fm} value={fm}>{fm}</option>
+											})}
+										</select></td>
+									</tr>
+									<tr>
+										<td>
+											{this.props.currentStreams ?
+												<ul className="table-stream">
+													{this.props.currentStreams.map((str)=>{
+														return <li key={str.id} ><a target="_blank" href={str.url}>{str.quality} {str.flag ? `(${str.flag})` : null}</a> &nbsp;</li>
+													})}
+												</ul>
+												: null}
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</td>
 					</tr>
 				</tbody>

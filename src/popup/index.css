@@ -17,3 +17,18 @@ table.table-youtube > caption{
 table.table-youtube > th, td {
     border: 1px solid #000088;
 }
+
+table.table-streams {
+    width: 100%;
+    height: 100%;
+}
+
+table.table-streams tr:nth-child(1){
+   max-height: 25px;
+    height: 23px;
+}
+
+.streams-body{
+    min-height: 114px;
+    height: 114px;
+}
