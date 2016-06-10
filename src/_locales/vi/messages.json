@@ -1,0 +1,10 @@
+{
+  "extName" : {
+    "message" : "Tải video Youtube",
+    "description" : "Extension name"
+  },
+  "extDescription" : {
+    "message" : "Xem và tải Youtube dưới nhiều định dạng: MP4, WebM, 3gp, flv, chỉ có âm thanh",
+    "description" : "Extension description"
+  }
+}

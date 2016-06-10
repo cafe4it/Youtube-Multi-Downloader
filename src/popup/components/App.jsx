@@ -7,29 +7,37 @@ class App extends Component{
 	constructor(props){
 		super(props);
 		this._getStreamsByFormat = this._getStreamsByFormat.bind(this);
+		this.formats = ['MP4','WEBM','3GP', 'FLV', 'Audio'];
+		this.state = {
+			format : null
+		}
 	}
 	componentDidMount(){
 		//this._getStreamsByFormat();
-		this.formats = ['MP4','WEBM','3GP', 'FLV', 'Audio'];
-		let streams = [];
-		if(this.props.currentInfo){
-			this.formats = _.keys(this.props.currentInfo.streams);
-			let defaultFormat = this.formats[0];
-			console.info(streams, defaultFormat, this.formats);
-			streams = this.props.currentInfo.streams[defaultFormat];
-		}
-		this.props.chooseFormat(streams);
+
 
 	}
 	componentDidUpdate(){
 
 	}
 	_getStreamsByFormat(e){
+		let self = this;
 		let format = e.target.value;
-		let streams = this.props.currentInfo.streams[format];
-		this.props.chooseFormat(streams);
+		this.setState({format : format}, ()=>{
+			let streams = this.props.currentInfo.streams[format];
+			self.props.chooseFormat(streams);
+		})
+
 	}
 	render(){
+		let defaultFormat = this.formats[0];
+
+		let streams = this.props.currentStreams || [];
+		if(this.props.currentInfo && !this.state.format){
+
+			//console.info(streams, defaultFormat, this.formats);
+			streams = this.props.currentInfo.streams[defaultFormat];
+		}
 
 		return <div className="container">
 			{this.props.currentInfo ?
@@ -42,7 +50,7 @@ class App extends Component{
 							<table className="table-streams">
 								<tbody>
 									<tr>
-										<td>Choose a format : <select onChange={this._getStreamsByFormat}>
+										<td>Choose a format : <select defaultValue={defaultFormat} onChange={this._getStreamsByFormat}>
 											{this.formats.map((fm)=>{
 												return <option key={fm} value={fm}>{fm}</option>
 											})}
@@ -50,9 +58,9 @@ class App extends Component{
 									</tr>
 									<tr>
 										<td>
-											{this.props.currentStreams ?
+											{streams ?
 												<ul className="table-stream">
-													{this.props.currentStreams.map((str)=>{
+													{streams.map((str)=>{
 														return <li key={str.id} ><a target="_blank" href={str.url}>{str.quality} {str.flag ? `(${str.flag})` : null}</a> &nbsp;</li>
 													})}
 												</ul>
@@ -64,7 +72,7 @@ class App extends Component{
 						</td>
 					</tr>
 				</tbody>
-			</table> : null}
+			</table> : <p>No video playing</p>}
 		</div>
 	}
 }

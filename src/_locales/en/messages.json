@@ -1,10 +1,10 @@
 {
   "extName" : {
-    "message" : "Youtube Multi Downloader",
+    "message" : "Youtube Multi Format",
     "description" : "Extension name"
   },
   "extDescription" : {
-    "message" : "Youtube multi downloader",
+    "message" : "View and download Youtube under several formats: MP4, WebM, 3gp, flv, Audio only",
     "description" : "Extension description"
   }
 }
